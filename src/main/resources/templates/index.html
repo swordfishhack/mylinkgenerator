@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Tiny URL</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#b").click(function(){
+
+                var u = $('#uuu').val();
+                var d = "{\"url\":\""+u+"\"}";
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/mytinylink",
+                    data: d,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    success: function (response) {
+                        $("#div1").html("<label>Tiny URL: </label><a href='"+response+"'>"+response+"</a>");
+                    },
+                    failure: function (response) {
+                        $("#div1").html("<label>Tiny URL: </label><a href='"+response+"'>"+response+"</a>");
+                    },
+                    error: function (response) {
+                        $("#div1").html("<label>Tiny URL: </label><a href='"+response+"'>"+response+"</a>");
+                    }
+                });
+
+
+            });
+        });
+    </script>
+    <style>
+        html{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            height:100%;
+            margin: 0;
+            padding: 0;
+        }
+        button {
+            background-color: #337ad6;
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type=text] {
+            width: 500px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        label, a {
+            font-size: 16px;
+            font-family: "Verdana";
+        }
+    </style>
+</head>
+<body>
+<label>URL: </label><input type="text" id="uuu">
+<button id="b" style="align-items: center;">Submit</button><br><br>
+<div id="div1"></div>
+</body>
+</html>
